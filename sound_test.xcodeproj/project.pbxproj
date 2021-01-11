@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F8129DFE25ACFB43006E9F4B /* shvaas-sr44k.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F8129DFD25ACFB43006E9F4B /* shvaas-sr44k.mlmodel */; };
 		F8EDD1BF258BB03100A5D2E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EDD1BE258BB03100A5D2E3 /* AppDelegate.swift */; };
 		F8EDD1C1258BB03100A5D2E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EDD1C0258BB03100A5D2E3 /* SceneDelegate.swift */; };
 		F8EDD1C3258BB03100A5D2E3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EDD1C2258BB03100A5D2E3 /* ViewController.swift */; };
@@ -15,6 +16,7 @@
 		F8EDD1CB258BB03700A5D2E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8EDD1C9258BB03700A5D2E3 /* LaunchScreen.storyboard */; };
 		F8EDD1D6258BB03800A5D2E3 /* sound_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EDD1D5258BB03800A5D2E3 /* sound_testTests.swift */; };
 		F8EDD1E1258BB03800A5D2E3 /* sound_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EDD1E0258BB03800A5D2E3 /* sound_testUITests.swift */; };
+		F8F07B4C25A79A5800453E20 /* resblock-test.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F8F07B4B25A79A5800453E20 /* resblock-test.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F8129DFD25ACFB43006E9F4B /* shvaas-sr44k.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = "shvaas-sr44k.mlmodel"; path = "../../../Downloads/shvaas-sr44k.mlmodel"; sourceTree = "<group>"; };
 		F8EDD1BB258BB03000A5D2E3 /* sound_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sound_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8EDD1BE258BB03100A5D2E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8EDD1C0258BB03100A5D2E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +52,7 @@
 		F8EDD1DC258BB03800A5D2E3 /* sound_testUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sound_testUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8EDD1E0258BB03800A5D2E3 /* sound_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sound_testUITests.swift; sourceTree = "<group>"; };
 		F8EDD1E2258BB03800A5D2E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8F07B4B25A79A5800453E20 /* resblock-test.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "resblock-test.mlmodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 		F8EDD1BD258BB03000A5D2E3 /* sound_test */ = {
 			isa = PBXGroup;
 			children = (
+				F8129DFD25ACFB43006E9F4B /* shvaas-sr44k.mlmodel */,
+				F8F07B4B25A79A5800453E20 /* resblock-test.mlmodel */,
 				F8EDD1BE258BB03100A5D2E3 /* AppDelegate.swift */,
 				F8EDD1C0258BB03100A5D2E3 /* SceneDelegate.swift */,
 				F8EDD1C2258BB03100A5D2E3 /* ViewController.swift */,
@@ -261,6 +267,8 @@
 				F8EDD1C3258BB03100A5D2E3 /* ViewController.swift in Sources */,
 				F8EDD1BF258BB03100A5D2E3 /* AppDelegate.swift in Sources */,
 				F8EDD1C1258BB03100A5D2E3 /* SceneDelegate.swift in Sources */,
+				F8F07B4C25A79A5800453E20 /* resblock-test.mlmodel in Sources */,
+				F8129DFE25ACFB43006E9F4B /* shvaas-sr44k.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
