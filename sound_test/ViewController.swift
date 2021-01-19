@@ -17,11 +17,14 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
     let audioEngine = AVAudioEngine()
     let audioSession = AVAudioSession.sharedInstance()
     var model = shvaas_sr44k()
+    var j = 0
+    var inputdata = try? MLMultiArray(shape:[1,131072], dataType:MLMultiArrayDataType.float32)
     
     var h = try? MLMultiArray(shape:[2,1,96], dataType:MLMultiArrayDataType.float32)
     var c = try?MLMultiArray(shape:[2,1,96],dataType:MLMultiArrayDataType.float32)
     
     func getVoice(output:MLMultiArray) -> Int{
+            var count = 0
             let n = (output.shape[1]).intValue
             let c = (output.shape[2]).intValue
 
@@ -47,12 +50,15 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
                         max = output[index].doubleValue
                         maxIndex = j
                     }
+                    if(j>0 && !(output[j]==0 && output[j-1]==0 && output[j+1]==0)){
+                        count+=1
+                    }
                 }
                 if(maxIndex>0){
                     freq[maxIndex]+=1
                 }
             }
-            return 0
+            return count
         }
     
     @IBAction func StartButton(_ sender: UIButton) {
@@ -62,49 +68,33 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
         }
         let inputNode = audioEngine.inputNode
         let bus = 0
-        /*let downMixer = AVAudioMixerNode()
-        audioEngine.attach(downMixer)
-        let format16KHzMono = AVAudioFormat.init(commonFormat: AVAudioCommonFormat.pcmFormatFloat32, sampleRate: 11025.0, channels: 1, interleaved: false)
-        audioEngine.connect(downMixer, to: audioEngine.outputNode, format: format16KHzMono)
- */
-        inputNode.installTap(onBus: bus, bufferSize: 131072, format: inputNode.outputFormat(forBus: bus)) {
-                    (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
+        inputNode.installTap(onBus: bus, bufferSize: 16384, format: inputNode.outputFormat(forBus: bus)) {
+            (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
             let floatArray = UnsafeBufferPointer(start: buffer.floatChannelData![0],count:Int(buffer.frameLength))
-           guard let inputdata = try? MLMultiArray(shape:[1,131072], dataType:MLMultiArrayDataType.float32) else{
-                                    fatalError("Did not work")
-                                }
-           var i = 0
-           while(i<floatArray.count){
-                var j = 0
-                while(j<131072 && i<floatArray.count){
-                    inputdata[j] = NSNumber(value: floatArray[i])
-                    //print(floatArray[i])
-                    j+=1
-                    i+=1
-                 }
-            //print(buffer.format.sampleRate)
-                  guard let output = try? self.model.prediction(input_1: inputdata,h_0: self.h!,c_0: self.c!) else {
-                                        fatalError("Unexpected runtime error.")
-                       }
-                    
-                    
-
+            if(self.j == 131072){
+                self.inputdata = try? MLMultiArray(shape:[1,131072], dataType:MLMultiArrayDataType.float32)
+                guard let output = try? self.model.prediction(input_1: self.inputdata!,h_0: self.h!,c_0: self.c!) else {
+                                fatalError("Unexpected runtime error.")
+                    }
+                         
+                         
                   let out = output._1252
                   for i in 0...191{
                     self.h![i] = output._1238[i]
                     self.c![i] = output._1239[i]
                    }
-                    self.getVoice(output: out)
+                self.getVoice(output: out)
+                self.j = 0
             }
-            
-        }
-        /*downMixer.outputVolume = 0.0
-        let format = inputNode.inputFormat(forBus: 0)
-        //I initialize a 16KHz format I need:
-        let format16KHzMono = AVAudioFormat.init(commonFormat: AVAudioCommonFormat.pcmFormatFloat32, sampleRate: 11025.0, channels: 1, interleaved: false)
-        audioEngine.connect(inputNode, to: downMixer, format: inputNode.inputFormat(forBus: 0))//use default input format
-       audioEngine.connect(downMixer, to: audioEngine.outputNode, format: format16KHzMono)//use new audio format
- */
+            var i = 0
+            while(self.j<131072 && i<floatArray.count){
+                self.inputdata![self.j] = NSNumber(value: floatArray[i])
+                print(floatArray[i])
+                self.j+=1
+                i+=1
+                //print(i)
+            }
+           }
         audioEngine.prepare()
         
         do {
